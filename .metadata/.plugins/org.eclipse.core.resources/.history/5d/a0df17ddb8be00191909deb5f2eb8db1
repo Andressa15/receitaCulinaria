@@ -1,0 +1,5 @@
+package com.receita.services;
+
+public class RecipeService {
+
+}

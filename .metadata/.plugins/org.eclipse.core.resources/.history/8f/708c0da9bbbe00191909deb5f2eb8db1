@@ -1,0 +1,27 @@
+package com.receita.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.receita.models.RecipeModel;
+import com.receita.repositorys.RecipeRepository;
+
+
+@Service
+public class RecipeService {
+	@Autowired
+	private RecipeRepository recipeRepository;
+
+	public void saveRecipe(RecipeModel recipe) {
+		recipeRepository.save(recipe);
+	}
+
+	public RecipeModel deleteRecipe(int id) {
+		return recipeRepository.deleteById(id);
+	}
+	public RecipeModel uptadeRecipe(int id) {
+		
+	}
+
+}

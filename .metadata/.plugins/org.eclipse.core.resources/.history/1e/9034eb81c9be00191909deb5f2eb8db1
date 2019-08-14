@@ -1,0 +1,64 @@
+package com.receita.controllers;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.receita.models.RecipeModel;
+import com.receita.services.RecipeService;
+
+@RestController
+@RequestMapping("/receita")
+public class RecipeController {
+	@Autowired
+	private RecipeService RecipeService;
+
+	@GetMapping
+	public ResponseEntity<?> save(@Valid @RequestBody RecipeModel recipe ){
+		try {
+			RecipeService.saveRecipe(recipe);
+			return ResponseEntity.status(HttpStatus.CREATED).body(recipe);	
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<?> takeTheID(@PathVariable int id){
+		try {
+			RecipeModel recipe = RecipeService.takeTheID(id);
+			return ResponseEntity.ok(recipe);	
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteRecipe(@PathVariable int id) {
+		try {
+			RecipeService.deleteRecipe(id);
+			return ResponseEntity.ok().build();
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> updateRecipe(@PathVariable int id,@Valid @RequestBody RecipeModel recipe) {
+		try {
+			RecipeService.updateRecipe(recipe, id);
+			return ResponseEntity.ok(recipe);
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+}

@@ -1,0 +1,32 @@
+package com.receita.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.receita.models.RecipeModel;
+import com.receita.repositorys.RecipeRepository;
+
+
+@Service
+public class RecipeService {
+	@Autowired
+	private RecipeRepository recipeRepository;
+
+	public void saveRecipe(RecipeModel recipe) {
+		recipeRepository.save(recipe);
+	}
+	public void apagarMensagem(int id) {
+		try {
+			recipeRepository.deleteById(id);	
+		}
+		public void atualizarMensagem(int id, Mensagem mensagem) {
+			Optional<Mensagem> optionalMensagem = mensagemRepository.findById(id);
+			if (!optionalMensagem.isPresent()) {
+				throw new MensagemNaoEncontradaException("Não há mensagens com esse id");
+			}
+
+			mensagem.setId(id);
+			mensagemRepository.save(mensagem);
+
+

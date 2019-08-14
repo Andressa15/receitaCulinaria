@@ -1,0 +1,5 @@
+package com.receita.repositorys;
+
+public interface RecipeRepository {
+
+}
